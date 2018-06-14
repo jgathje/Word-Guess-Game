@@ -58,52 +58,53 @@ var guessedArray = [];
 document.onkeyup = function (event) {
 
     var lastKeyPressed = event.key;
-    if (lastKeyPressed == guessLetter) {
-        var correctLetter = document.getElementById("correctLetter");
-        correctLetter.textContent = "Correct Letter: " + guessLetter;
-        reset();
-        console.log("YOU WIN!");
-        wins++;
-        guess();
-        var pWin = document.getElementById("wins");
-        pWin.textContent = "Wins: " + wins;
-        
-        document.getElementById("image").src = "assets/images/ron.gif";
+    if (isAlpha(event.key)) {
+        if (lastKeyPressed == guessLetter) {
+            var correctLetter = document.getElementById("correctLetter");
+            correctLetter.textContent = "Correct Letter: " + guessLetter;
+            reset();
+            console.log("YOU WIN!");
+            wins++;
+            guess();
+            var pWin = document.getElementById("wins");
+            pWin.textContent = "Wins: " + wins;
+
+            document.getElementById("image").src = "assets/images/ron.gif";
+
+        }
+        else if (event.key != guessLetter, guessesLeft > 1) {
+            guessesLeft--;
+            keysPressedSoFar += event.key + ", ";
+            guess();
+            var image = imgArray[Math.floor(Math.random() * imgArray.length)];
+            var displayImage = imgArray[image];
+            document.getElementById("image").src = image;
+            console.log(image);
+            console.log(event.key);
+            console.log(guessedArray);
+            var correctLetter = document.getElementById("correctLetter");
+            correctLetter.textContent = "Correct Letter: ";
+        }
+        else if (guessesLeft == 1) {
+            var correctLetter = document.getElementById("correctLetter");
+            correctLetter.textContent = "Correct Letter: " + guessLetter;
+            reset();
+            losses++;
+            guess();
+            var pLose = document.getElementById("losses");
+            pLose.textContent = "Losses: " + losses;
+            document.getElementById("image").src = "assets/images/gameover.gif";
+        }
+
 
     }
-    else if (event.key != guessLetter, guessesLeft > 1) {
-        letterCheck();
-        guessesLeft--;
-        keysPressedSoFar += event.key + ", ";
-        guess();
-        var image = imgArray[Math.floor(Math.random() * imgArray.length)];
-        var displayImage = imgArray[image];
-        document.getElementById("image").src = image;
-        console.log(image);
-        console.log(event.key);
-        console.log(guessedArray);
-        var correctLetter = document.getElementById("correctLetter");
-        correctLetter.textContent = "Correct Letter: ";
-    }
-    else if (guessesLeft == 1) {
-        var correctLetter = document.getElementById("correctLetter");
-        correctLetter.textContent = "Correct Letter: " + guessLetter;
-        reset();
-        losses++;
-        guess();
-        var pLose = document.getElementById("losses");
-        pLose.textContent = "Losses: " + losses;
-        document.getElementById("image").src = "assets/images/gameover.gif";
-    }
-
-
 }
-
 function reset() {
     guessesLeft = 9;
     keysPressedSoFar = ""
     guessLetter = alpha[Math.floor(Math.random() * alpha.length)];
     console.log(guessLetter);
+    guessedArray = []
 }
 
 function guess() {
@@ -111,23 +112,35 @@ function guess() {
     pLettersGuessed.textContent = "Letters Guessed: " + keysPressedSoFar;
     var pGuessesLeft = document.getElementById("guessesLeft");
     pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
+    guessedArray.push(event.key);
 }
 
 function letterCheck() {
-    guessedArray.push(event.key);
-    if (isAlpha(event.key)){
-        alert = "Invalid key";
-    }
+    isAlpha(event.key);
+    notGuessed(event.key);
+
+
 }
 
-function isAlpha(letter){
-    for (var i in alpha);{
-        if (event.key != alpha[i]){
-            i++;
-        }
-        else if (event.key == alpha[i]){
+function isAlpha() {
+    for (var i = 0; i < alpha.length; i++) {
+        if (event.key == alpha[i]) {
+            return true;
 
         }
-        console.log(i);
+
+
+
+
     }
+    return false;
+}
+
+function notGuessed() {
+    for (var j = 0; j < guessedArray.length; j++){
+        if (event.key == guessedArray[j]){
+            return true;
+        }
+    }
+    return false;
 }
