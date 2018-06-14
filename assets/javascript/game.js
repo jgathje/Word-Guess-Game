@@ -32,7 +32,7 @@ var alpha = [
     "y",
     "z",
 ];
-var imgArray =[
+var imgArray = [
     "assets/images/badtime.jpg",
     "assets/images/ruhroh.jpg",
     "assets/images/doh.jpg",
@@ -59,51 +59,48 @@ document.onkeyup = function (event) {
 
     var lastKeyPressed = event.key;
     if (lastKeyPressed == guessLetter) {
-        reset ();
+        reset();
         console.log("YOU WIN!");
         wins++;
-        var pLettersGuessed = document.getElementById("lettersGuessed");
-        pLettersGuessed.textContent = "Letters Guessed: " + keysPressedSoFar;
+        guess();
         var pWin = document.getElementById("wins");
         pWin.textContent = "Wins: " + wins;
-        var pGuessesLeft = document.getElementById("guessesLeft");
-        pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
+        
         document.getElementById("image").src = "assets/images/ron.gif";
 
     }
     else if (event.key != guessLetter, guessesLeft > 1) {
         guessesLeft--;
         keysPressedSoFar += event.key;
-        var pLettersGuessed = document.getElementById("lettersGuessed");
-        pLettersGuessed.textContent = "Letters Guessed: " + keysPressedSoFar;
-        console.log(keysPressedSoFar);
-        var pGuessesLeft = document.getElementById("guessesLeft");
-        pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
+        guess();
         var image = imgArray[Math.floor(Math.random() * imgArray.length)];
         var displayImage = imgArray[image];
-        document.getElementById("image").src= image;
+        document.getElementById("image").src = image;
         console.log(image);
     }
     else if (guessesLeft == 1) {
-        reset ();
+        reset();
         losses++;
-        var pLettersGuessed = document.getElementById("lettersGuessed");
-        pLettersGuessed.textContent = "Letters Guessed: " + keysPressedSoFar;
-        var pGuessesLeft = document.getElementById("guessesLeft");
-        pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
+        guess();
         var pLose = document.getElementById("losses");
         pLose.textContent = "Losses: " + losses;
         document.getElementById("image").src = "assets/images/gameover.gif";
     }
-    
-    
+
+
 }
 
-function reset (){
-    guessesLeft=9;
-    keysPressedSoFar=""
+function reset() {
+    guessesLeft = 9;
+    keysPressedSoFar = ""
     guessLetter = alpha[Math.floor(Math.random() * alpha.length)];
     console.log(guessLetter);
 }
 
+function guess() {
+    var pLettersGuessed = document.getElementById("lettersGuessed");
+    pLettersGuessed.textContent = "Letters Guessed: " + keysPressedSoFar;
+    var pGuessesLeft = document.getElementById("guessesLeft");
+    pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
+}
 

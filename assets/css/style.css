@@ -1,3 +1,30 @@
-.container {
+#scoreboard, #head {
     text-align: center;
+}
+#image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+body {
+    background-image: url("../images/eight.jpg");
+    background-repeat: repeat;
+}
+
+#score {
+    
+   
+}
+
+#rightImg {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#leftImg {
+    position: fixed;
+    left: 0;
+    top: 0;
 }
