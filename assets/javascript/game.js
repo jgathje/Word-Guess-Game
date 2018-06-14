@@ -48,7 +48,7 @@ var guessLetter = alpha[Math.floor(Math.random() * alpha.length)];
 
 console.log(guessLetter);
 
-
+var guessedArray = [];
 
 // end letter generator
 
@@ -59,6 +59,8 @@ document.onkeyup = function (event) {
 
     var lastKeyPressed = event.key;
     if (lastKeyPressed == guessLetter) {
+        var correctLetter = document.getElementById("correctLetter");
+        correctLetter.textContent = "Correct Letter: " + guessLetter;
         reset();
         console.log("YOU WIN!");
         wins++;
@@ -70,15 +72,22 @@ document.onkeyup = function (event) {
 
     }
     else if (event.key != guessLetter, guessesLeft > 1) {
+        letterCheck();
         guessesLeft--;
-        keysPressedSoFar += event.key;
+        keysPressedSoFar += event.key + ", ";
         guess();
         var image = imgArray[Math.floor(Math.random() * imgArray.length)];
         var displayImage = imgArray[image];
         document.getElementById("image").src = image;
         console.log(image);
+        console.log(event.key);
+        console.log(guessedArray);
+        var correctLetter = document.getElementById("correctLetter");
+        correctLetter.textContent = "Correct Letter: ";
     }
     else if (guessesLeft == 1) {
+        var correctLetter = document.getElementById("correctLetter");
+        correctLetter.textContent = "Correct Letter: " + guessLetter;
         reset();
         losses++;
         guess();
@@ -104,3 +113,21 @@ function guess() {
     pGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
 }
 
+function letterCheck() {
+    guessedArray.push(event.key);
+    if (isAlpha(event.key)){
+        alert = "Invalid key";
+    }
+}
+
+function isAlpha(letter){
+    for (var i in alpha);{
+        if (event.key != alpha[i]){
+            i++;
+        }
+        else if (event.key == alpha[i]){
+
+        }
+        console.log(i);
+    }
+}
