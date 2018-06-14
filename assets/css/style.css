@@ -1,5 +1,6 @@
 #scoreboard, #head {
     text-align: center;
+    background-color: beige;
 }
 #image {
     display: block;
@@ -13,7 +14,7 @@ body {
 }
 
 #score {
-    
+    background-color: beige;
    
 }
 
@@ -21,10 +22,12 @@ body {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: -1;
 }
 
 #leftImg {
     position: fixed;
     left: 0;
     top: 0;
+    z-index: -1;
 }
