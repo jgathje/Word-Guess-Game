@@ -62,38 +62,41 @@ document.onkeyup = function (event) {
         if (lastKeyPressed == guessLetter) {
             var correctLetter = document.getElementById("correctLetter");
             correctLetter.textContent = "Correct Letter: " + guessLetter;
-            reset();
+            
             console.log("YOU WIN!");
             wins++;
             guess();
             var pWin = document.getElementById("wins");
             pWin.textContent = "Wins: " + wins;
-
+            reset();
             document.getElementById("image").src = "assets/images/ron.gif";
 
         }
         else if (event.key != guessLetter, guessesLeft > 1) {
-            guessesLeft--;
-            keysPressedSoFar += event.key + ", ";
-            guess();
-            var image = imgArray[Math.floor(Math.random() * imgArray.length)];
-            var displayImage = imgArray[image];
-            document.getElementById("image").src = image;
-            console.log(image);
-            console.log(event.key);
-            console.log(guessedArray);
-            var correctLetter = document.getElementById("correctLetter");
-            correctLetter.textContent = "Correct Letter: ";
+            if (notGuessed(event.key)) {
+                guessesLeft--;
+                keysPressedSoFar += event.key + ", ";
+                guess();
+                var image = imgArray[Math.floor(Math.random() * imgArray.length)];
+                var displayImage = imgArray[image];
+                document.getElementById("image").src = image;
+                console.log(image);
+                console.log(event.key);
+                console.log(guessedArray);
+                var correctLetter = document.getElementById("correctLetter");
+                correctLetter.textContent = "Correct Letter: ";
+            }
         }
         else if (guessesLeft == 1) {
             var correctLetter = document.getElementById("correctLetter");
             correctLetter.textContent = "Correct Letter: " + guessLetter;
-            reset();
+            
             losses++;
             guess();
             var pLose = document.getElementById("losses");
             pLose.textContent = "Losses: " + losses;
             document.getElementById("image").src = "assets/images/gameover.gif";
+            reset();
         }
 
 
@@ -104,7 +107,7 @@ function reset() {
     keysPressedSoFar = ""
     guessLetter = alpha[Math.floor(Math.random() * alpha.length)];
     console.log(guessLetter);
-    guessedArray = []
+    guessedArray = [];
 }
 
 function guess() {
@@ -137,10 +140,10 @@ function isAlpha() {
 }
 
 function notGuessed() {
-    for (var j = 0; j < guessedArray.length; j++){
-        if (event.key == guessedArray[j]){
-            return true;
+    for (var j = 0; j < guessedArray.length; j++) {
+        if (event.key == guessedArray[j]) {
+            return false;
         }
     }
-    return false;
+    return true;
 }
